@@ -329,6 +329,8 @@ var app = (function () {
     	let h12;
     	let t9;
     	let textarea1;
+    	let t10;
+    	let input;
     	let dispose;
 
     	const block = {
@@ -353,29 +355,31 @@ var app = (function () {
     			h12.textContent = "AI Suggestions";
     			t9 = space();
     			textarea1 = element("textarea");
+    			t10 = space();
+    			input = element("input");
     			set_style(span, "color", "lime");
     			attr_dev(span, "class", "svelte-10hw021");
-    			add_location(span, file, 26, 50, 837);
+    			add_location(span, file, 26, 50, 801);
     			set_style(h10, "text-align", "center");
     			set_style(h10, "color", "white");
     			attr_dev(h10, "class", "svelte-10hw021");
-    			add_location(h10, file, 26, 0, 787);
+    			add_location(h10, file, 26, 0, 751);
     			attr_dev(h11, "class", "svelte-10hw021");
-    			add_location(h11, file, 30, 0, 1114);
+    			add_location(h11, file, 30, 0, 1078);
     			attr_dev(textarea0, "placeholder", "Enter your code here");
     			attr_dev(textarea0, "class", "svelte-10hw021");
-    			add_location(textarea0, file, 32, 0, 1193);
+    			add_location(textarea0, file, 32, 0, 1157);
     			attr_dev(button, "class", "svelte-10hw021");
-    			add_location(button, file, 35, 0, 1317);
+    			add_location(button, file, 35, 0, 1281);
     			set_style(div0, "display", "flex");
     			set_style(div0, "flex-direction", "column");
     			set_style(div0, "align-items", "center");
     			set_style(div0, "justify-content", "center");
     			set_style(div0, "margin-right", "4px");
     			attr_dev(div0, "class", "svelte-10hw021");
-    			add_location(div0, file, 29, 0, 995);
+    			add_location(div0, file, 29, 0, 959);
     			attr_dev(h12, "class", "svelte-10hw021");
-    			add_location(h12, file, 39, 0, 1477);
+    			add_location(h12, file, 39, 0, 1441);
     			attr_dev(textarea1, "placeholder", "Output");
     			set_style(textarea1, "width", "30rem");
     			set_style(textarea1, "height", "60vh");
@@ -386,20 +390,33 @@ var app = (function () {
     			set_style(textarea1, "padding", "10px");
     			set_style(textarea1, "border-radius", "10px");
     			attr_dev(textarea1, "class", "svelte-10hw021");
-    			add_location(textarea1, file, 41, 0, 1554);
+    			add_location(textarea1, file, 41, 0, 1518);
     			set_style(div1, "display", "flex");
     			set_style(div1, "flex-direction", "column");
     			set_style(div1, "align-items", "center");
     			set_style(div1, "justify-content", "center");
     			attr_dev(div1, "class", "svelte-10hw021");
-    			add_location(div1, file, 38, 0, 1377);
+    			add_location(div1, file, 38, 0, 1341);
     			set_style(main, "display", "flex");
     			set_style(main, "flex-direction", "row");
     			set_style(main, "align-items", "center");
     			set_style(main, "justify-content", "center");
     			set_style(main, "row-gap", "2px");
     			attr_dev(main, "class", "svelte-10hw021");
-    			add_location(main, file, 28, 0, 883);
+    			add_location(main, file, 28, 0, 847);
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "placeholder", "Enter your API key here");
+    			set_style(input, "width", "30rem");
+    			set_style(input, "height", "2rem");
+    			set_style(input, "background-color", "rgb(31, 30, 30)");
+    			set_style(input, "color", "white");
+    			set_style(input, "outline-color", "white");
+    			set_style(input, "border", "0.5px solid white");
+    			set_style(input, "padding", "10px");
+    			set_style(input, "border-radius", "10px");
+    			set_style(input, "margin-left", "4px");
+    			attr_dev(input, "class", "svelte-10hw021");
+    			add_location(input, file, 46, 0, 1773);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -422,12 +439,16 @@ var app = (function () {
     			append_dev(div1, h12);
     			append_dev(div1, t9);
     			append_dev(div1, textarea1);
-    			set_input_value(textarea1, /*output*/ ctx[1]);
+    			set_input_value(textarea1, /*output*/ ctx[2]);
+    			insert_dev(target, t10, anchor);
+    			insert_dev(target, input, anchor);
+    			set_input_value(input, /*key*/ ctx[1]);
 
     			dispose = [
-    				listen_dev(textarea0, "input", /*textarea0_input_handler*/ ctx[3]),
-    				listen_dev(button, "click", /*getSuggestion*/ ctx[2], false, false, false),
-    				listen_dev(textarea1, "input", /*textarea1_input_handler*/ ctx[4])
+    				listen_dev(textarea0, "input", /*textarea0_input_handler*/ ctx[4]),
+    				listen_dev(button, "click", /*getSuggestion*/ ctx[3], false, false, false),
+    				listen_dev(textarea1, "input", /*textarea1_input_handler*/ ctx[5]),
+    				listen_dev(input, "input", /*input_input_handler*/ ctx[6])
     			];
     		},
     		p: function update(ctx, [dirty]) {
@@ -435,8 +456,12 @@ var app = (function () {
     				set_input_value(textarea0, /*code*/ ctx[0]);
     			}
 
-    			if (dirty & /*output*/ 2) {
-    				set_input_value(textarea1, /*output*/ ctx[1]);
+    			if (dirty & /*output*/ 4) {
+    				set_input_value(textarea1, /*output*/ ctx[2]);
+    			}
+
+    			if (dirty & /*key*/ 2 && input.value !== /*key*/ ctx[1]) {
+    				set_input_value(input, /*key*/ ctx[1]);
     			}
     		},
     		i: noop,
@@ -445,6 +470,8 @@ var app = (function () {
     			if (detaching) detach_dev(h10);
     			if (detaching) detach_dev(t2);
     			if (detaching) detach_dev(main);
+    			if (detaching) detach_dev(t10);
+    			if (detaching) detach_dev(input);
     			run_all(dispose);
     		}
     	};
@@ -462,6 +489,7 @@ var app = (function () {
 
     function instance($$self, $$props, $$invalidate) {
     	let code = "";
+    	let key = "";
     	let output = "";
 
     	async function getSuggestion() {
@@ -469,7 +497,7 @@ var app = (function () {
     			method: "POST",
     			headers: {
     				"Content-Type": "application/json",
-    				"Authorization": "Bearer " + "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"
+    				"Authorization": "Bearer " + key
     			},
     			body: JSON.stringify({
     				prompt: "detect common programming mistakes and provide suggestions for code optimization for the following code and fix any errors: " + code + " write it normally without any comments",
@@ -480,7 +508,7 @@ var app = (function () {
     		});
 
     		const data = await response.json();
-    		$$invalidate(1, output = data.choices[0].text);
+    		$$invalidate(2, output = data.choices[0].text);
     	}
 
     	function textarea0_input_handler() {
@@ -490,21 +518,42 @@ var app = (function () {
 
     	function textarea1_input_handler() {
     		output = this.value;
-    		$$invalidate(1, output);
+    		$$invalidate(2, output);
     	}
 
-    	$$self.$capture_state = () => ({ code, output, getSuggestion, fetch, JSON });
+    	function input_input_handler() {
+    		key = this.value;
+    		$$invalidate(1, key);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		code,
+    		key,
+    		output,
+    		getSuggestion,
+    		fetch,
+    		JSON
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ("code" in $$props) $$invalidate(0, code = $$props.code);
-    		if ("output" in $$props) $$invalidate(1, output = $$props.output);
+    		if ("key" in $$props) $$invalidate(1, key = $$props.key);
+    		if ("output" in $$props) $$invalidate(2, output = $$props.output);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [code, output, getSuggestion, textarea0_input_handler, textarea1_input_handler];
+    	return [
+    		code,
+    		key,
+    		output,
+    		getSuggestion,
+    		textarea0_input_handler,
+    		textarea1_input_handler,
+    		input_input_handler
+    	];
     }
 
     class App extends SvelteComponentDev {

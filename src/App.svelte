@@ -1,6 +1,6 @@
 <script>
 	let code = "";
-
+	let key = "";
 	let output = "";
 
 	async function getSuggestion() {
@@ -8,7 +8,7 @@
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + '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',
+        'Authorization': 'Bearer ' + key,
       },
       body: JSON.stringify({
         prompt: 'detect common programming mistakes and provide suggestions for code optimization for the following code and fix any errors: ' + code + ' write it normally without any comments',
@@ -43,6 +43,8 @@
 </div>
 
 </main>
+
+<input type="text" bind:value={key} placeholder="Enter your API key here" style="width: 30rem; height: 2rem; background-color: rgb(31, 30, 30); color: white; outline-color: white; border: 0.5px solid white; padding: 10px; border-radius: 10px; margin-left: 4px;">
 
 <style>
 	:root {
